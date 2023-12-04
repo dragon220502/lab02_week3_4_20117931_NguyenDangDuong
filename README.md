@@ -10,3 +10,4 @@ Font-end
 việc thanh toán qua thẻ nếu có thể)
 - Vẽ biểu đồ giá theo thời gian
 - *** và các chức năng khác tự ngh
+<img width="1273" alt="image" src="https://github.com/dragon220502/lab02_week3_4_20117931_NguyenDangDuong/assets/98084973/e00eb658-c81a-4541-b7e7-d5f876f09333">
