@@ -34,14 +34,10 @@
     </style>
 </head>
 <body>
-<form class="container" action="control-servlet?action=insertEmp" method="post">
+<form class="container" action="control-servlet?action=insertCust" method="post">
     <div class="mb-3">
-        <label for="fullname" class="form-label">Full Name</label>
-        <input type="text" class="form-control" id="fullname" name="fullname">
-    </div>
-    <div class="mb-3">
-        <label for="dob" class="form-label">Date of Birth</label>
-        <input type="date" class="form-control" style="width: 140px" id="dob" name="dob">
+        <label for="name" class="form-label">Full Name</label>
+        <input type="text" class="form-control" id="name" name="name">
     </div>
     <div class="mb-3">
         <label for="email" class="form-label">Email</label>
@@ -53,15 +49,7 @@
     </div>
     <div class="mb-3">
         <label for="address" class="form-label">Address</label>
-        <textarea class="form-control" id="address" name="address" rows="3"></textarea>
-    </div>
-    <div class="mb-3">
-        <label for="status" class="form-label">Status</label>
-        <select class="form-select" id="status" name="status">
-            <option selected="true" value="DANGLAM">DANGLAM</option>
-            <option value="NGHI">NGHI</option>
-            <option value="TAMNGUNG">TAM NGUNG</option>
-        </select>
+        <input type="text" class="form-control" id="address" name="address" >
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
     <button type="reset" class="btn btn-secondary">Clear</button>

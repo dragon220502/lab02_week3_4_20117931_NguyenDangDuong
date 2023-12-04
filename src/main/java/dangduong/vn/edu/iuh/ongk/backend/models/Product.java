@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
@@ -14,13 +16,11 @@ import lombok.NoArgsConstructor;
 public class Product {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
+    @Column(name = "product_id", insertable = false, updatable = false)
     private long prodcctId;
-
     @Column(columnDefinition = "varchar(250)")
     private String description;
     @Column(columnDefinition = "varchar(100)")
-
     private String manufacturerName;
     @Column(columnDefinition = "varchar(150)")
     private String name;
@@ -29,6 +29,38 @@ public class Product {
     @Column(columnDefinition = "int(11)")
     @Enumerated(EnumType.ORDINAL)
     private ProductEnum status;
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ProductImage> productImageList;
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<OrderDetail> orderDetails;
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ProductPrice> productPrices;
 
+    public Product(String description, String manufacturerName, String name, String unit, ProductEnum status) {
+        this.description = description;
+        this.manufacturerName = manufacturerName;
+        this.name = name;
+        this.unit = unit;
+        this.status = status;
+    }
 
+    public Product(long prodcctId, String description, String manufacturerName, String name, String unit, ProductEnum status, List<ProductImage> productImageList, List<ProductPrice> productPrices) {
+        this.prodcctId = prodcctId;
+        this.description = description;
+        this.manufacturerName = manufacturerName;
+        this.name = name;
+        this.unit = unit;
+        this.status = status;
+        this.productImageList = productImageList;
+        this.productPrices = productPrices;
+    }
+
+    public Product(long id, String name, String decription, String manufacturer, String unit, ProductEnum productEnum) {
+        this.prodcctId = id;
+        this.description = description;
+        this.manufacturerName = manufacturerName;
+        this.name = name;
+        this.unit = unit;
+        this.status = status;
+    }
 }

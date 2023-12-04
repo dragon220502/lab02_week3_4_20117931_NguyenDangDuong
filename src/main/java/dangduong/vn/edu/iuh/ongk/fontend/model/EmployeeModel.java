@@ -6,62 +6,66 @@ import dangduong.vn.edu.iuh.ongk.backend.models.Employee;
 import dangduong.vn.edu.iuh.ongk.backend.services.EmployeeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.jetbrains.annotations.NotNull;
 
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+
+import java.io.IOException;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class EmployeeModel {
-    private final EmployeeService empsve = new EmployeeService();
-   public void insert( HttpServletRequest request, HttpServletResponse response) throws Exception{
-        String fullname = request.getParameter("fullname");
-       String dob = request.getParameter("dob");
-       String email = request.getParameter("email");
-       String phone = request.getParameter("phone");
-       String address = request.getParameter("address");
-       String status = request.getParameter("status");
+    private EmployeeService employeeService;
 
-       DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-       LocalDate day = LocalDate.parse(dob,date);
-       Employee s1 = new Employee(fullname,email,phone,address,day, EmployeeStatus.valueOf(status));
-       System.out.println(s1);
-       empsve.insert(s1);
-       response.sendRedirect("listEmp.jsp");
-   }
-   public List<Employee> getAllEmployee(){
-       return empsve.getAll();
-   }
-    public void uodate( HttpServletRequest request, HttpServletResponse response) throws Exception{
-        String fullname = request.getParameter("fullname");
-        String dob = request.getParameter("dob");
-        String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
-        String address = request.getParameter("address");
-        String status = request.getParameter("status");
-        long id = Long.parseLong(request.getParameter("id"));
-        // Cập nhật các thuộc tính của nhân viên
-        Employee e = empsve.find(id);
-        e.setStatus(EmployeeStatus.valueOf(status));
-        DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate day = LocalDate.parse(dob,date);
-        e.setDob(day);
-        e.setAddress(address);
-        e.setEmail(email);
-        e.setPhone(phone);
-        e.setFull_name(fullname);
-        empsve.update(e);
-        response.sendRedirect("listEmp.jsp");
+    public EmployeeModel(){
+        this.employeeService = new EmployeeService();
     }
-    public void delete( HttpServletRequest request, HttpServletResponse response) throws Exception{
-        long id = Long.parseLong(request.getParameter("id"));
-        // Cập nhật các thuộc tính của nhân viên
-        Employee e = empsve.find(id);
-        empsve.delete(e);
-        response.sendRedirect("listEmp.jsp");
+    public void insertEmployee(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        try{
+        String fullname = req.getParameter("fullname").trim();
+        String email = req.getParameter("email").trim();
+        String phone = req.getParameter("phone").trim();
+        String address = req.getParameter("address").trim();
+        String statusStr = req.getParameter("status").trim();
+        String dateOfBirth = req.getParameter("dob");
+
+        EmployeeStatus employeeStatus = EmployeeStatus.valueOf(statusStr);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(dateOfBirth, formatter);
+
+        Employee employee = new Employee(fullname, email, phone, address, localDate, employeeStatus);
+        employeeService.create(employee);
+        resp.sendRedirect("listEmp.jsp");
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+    public void updateEmployee(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        long id = Long.parseLong(req.getParameter("id"));
+        String fullname = req.getParameter("fullname").trim();
+        String email = req.getParameter("email").trim();
+        String phone = req.getParameter("phone").trim();
+        String address = req.getParameter("address").trim();
+        String statusStr = req.getParameter("status").trim();
+        String dateOfBirth = req.getParameter("dob").trim();
+        EmployeeStatus employeeStatus = EmployeeStatus.valueOf(statusStr);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(dateOfBirth, formatter);
+
+        Employee employee = new Employee(id, fullname, email, phone, address, localDate, employeeStatus);
+        employeeService.update(employee);
+        resp.sendRedirect("listEmp.jsp");
+    }
+    public void deleteEmployee(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        long id = Long.parseLong(req.getParameter("id"));
+        employeeService.delete(id);
+        resp.sendRedirect("listEmp.jsp");
+    }
+    public void getEmployeeList(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        List<Employee> employees = employeeService.getAll();
+        req.getSession().setAttribute("employees", employees);
+        resp.sendRedirect("listEmp.jsp");
     }
 
 }

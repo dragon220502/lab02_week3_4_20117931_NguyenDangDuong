@@ -2,14 +2,14 @@ package dangduong.vn.edu.iuh.ongk.backend.repository;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import lombok.Getter;
+
 
 public class Connection {
     private EntityManagerFactory em;
     private static Connection inStance;
 
     private Connection() {
-        em = Persistence.createEntityManagerFactory("default");
+        em = Persistence.createEntityManagerFactory("defailt");
 
     }
 

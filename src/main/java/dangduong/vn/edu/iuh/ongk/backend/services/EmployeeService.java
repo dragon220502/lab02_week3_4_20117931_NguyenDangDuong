@@ -4,6 +4,7 @@ import dangduong.vn.edu.iuh.ongk.backend.models.Employee;
 import dangduong.vn.edu.iuh.ongk.backend.repository.EmployeeRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public class EmployeeService {
     private EmployeeRepository empres;
@@ -12,7 +13,7 @@ public class EmployeeService {
         empres = new EmployeeRepository();
 
     }
-    public boolean insert(Employee e){
+    public boolean create(Employee e){
         return empres.insertEmployee(e);
 
     }
@@ -20,14 +21,13 @@ public class EmployeeService {
         return empres.updateEmployee(e);
 
     }
-    public boolean delete(Employee e){
-        return empres.deleteEmployee(e);
-
+    public boolean delete(Long id){
+        return empres.deleteEmployee(id);
     }
     public List<Employee> getAll(){
         return  empres.getAll();
     }
-    public Employee find(long id){
+    public Optional<Employee> findById(long id){
         return empres.findById(id);
     }
 }

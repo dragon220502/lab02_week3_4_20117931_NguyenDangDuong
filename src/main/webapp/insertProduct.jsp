@@ -34,32 +34,36 @@
     </style>
 </head>
 <body>
-<form class="container" action="control-servlet?action=insertEmp" method="post">
+<form class="container" action="control-servlet?action=insertProduct" method="post" enctype="multipart/form-data">
     <div class="mb-3">
-        <label for="fullname" class="form-label">Full Name</label>
-        <input type="text" class="form-control" id="fullname" name="fullname">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" name="name">
     </div>
     <div class="mb-3">
-        <label for="dob" class="form-label">Date of Birth</label>
-        <input type="date" class="form-control" style="width: 140px" id="dob" name="dob">
+        <label for="image" class="form-label">Name</label>
+        <input type="file" class="form-control" id="image" name="image"  size="60">
     </div>
     <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" name="email">
+        <label for="decription" class="form-label">Decription</label>
+        <textarea class="form-control"  id="decription" name="decription" rows="3"></textarea>
     </div>
     <div class="mb-3">
-        <label for="phone" class="form-label">Phone</label>
-        <input type="text" class="form-control" id="phone" name="phone">
+        <label for="manufacturer" class="form-label">Manufacturer</label>
+        <input type="text" class="form-control" id="manufacturer" name="manufacturer">
     </div>
     <div class="mb-3">
-        <label for="address" class="form-label">Address</label>
-        <textarea class="form-control" id="address" name="address" rows="3"></textarea>
+        <label for="unit" class="form-label">Unit</label>
+        <input type="text" class="form-control" id="unit" name="unit">
+    </div>
+    <div class="mb-3">
+        <label for="price" class="form-label">Price</label>
+        <input type="number" class="form-control" id="price" name="price">
     </div>
     <div class="mb-3">
         <label for="status" class="form-label">Status</label>
         <select class="form-select" id="status" name="status">
-            <option selected="true" value="DANGLAM">DANGLAM</option>
-            <option value="NGHI">NGHI</option>
+            <option selected="true" value="DANGKINHDOANG">DANG KINH DOANG</option>
+            <option value="KHONGKINHDOANG">KHONG KINH DOANG</option>
             <option value="TAMNGUNG">TAM NGUNG</option>
         </select>
     </div>

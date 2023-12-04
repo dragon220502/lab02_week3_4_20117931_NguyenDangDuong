@@ -34,34 +34,18 @@
     </style>
 </head>
 <body>
-<form class="container" action="control-servlet?action=insertEmp" method="post">
+<form class="container" action="control-servlet?action=insertOrder" method="post">
     <div class="mb-3">
-        <label for="fullname" class="form-label">Full Name</label>
-        <input type="text" class="form-control" id="fullname" name="fullname">
+        <label for="Date" class="form-label">Date</label>
+        <input type="date" class="form-control" id="Date" name="Date">
     </div>
     <div class="mb-3">
-        <label for="dob" class="form-label">Date of Birth</label>
-        <input type="date" class="form-control" style="width: 140px" id="dob" name="dob">
+        <label for="cust" class="form-label">Customer ID</label>
+        <input type="number" class="form-control" id="cust" name="cust">
     </div>
     <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" name="email">
-    </div>
-    <div class="mb-3">
-        <label for="phone" class="form-label">Phone</label>
-        <input type="text" class="form-control" id="phone" name="phone">
-    </div>
-    <div class="mb-3">
-        <label for="address" class="form-label">Address</label>
-        <textarea class="form-control" id="address" name="address" rows="3"></textarea>
-    </div>
-    <div class="mb-3">
-        <label for="status" class="form-label">Status</label>
-        <select class="form-select" id="status" name="status">
-            <option selected="true" value="DANGLAM">DANGLAM</option>
-            <option value="NGHI">NGHI</option>
-            <option value="TAMNGUNG">TAM NGUNG</option>
-        </select>
+        <label for="emp" class="form-label">Employee ID</label>
+        <input type="number" class="form-control" id="emp" name="emp">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
     <button type="reset" class="btn btn-secondary">Clear</button>

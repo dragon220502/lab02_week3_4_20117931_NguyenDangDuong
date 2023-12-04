@@ -3,21 +3,14 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
-  <persistence-unit name="default">
-    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-    <!-- Đường dẫn đến cơ sở dữ liệu MariaDB -->
+  <persistence-unit name="defailt">
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/week2"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
-      <property name="javax.persistence.jdbc.password" value="123456"/>
-
-      <!-- Sử dụng driver MariaDB -->
-      <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
-
-      <!-- Dialect cho Hibernate, tùy theo phiên bản Hibernate -->
-      <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDBDialect"/>
-
-      <!-- Auto generate bảng nếu cần -->
+      <property name="jakarta.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
+      <property name="jakarta.persistence.jdbc.dialect" value="org.hibernate.dialect.MariaDBDialect"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/week2?createDatabaseIfNotExist=true"/>
+      <property name="jakarta.persistence.jdbc.user" value="root"/>
+      <property name="jakarta.persistence.jdbc.password" value="123456"/>
+      <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.hbm2ddl.auto" value="update"/>
     </properties>
   </persistence-unit>

@@ -6,9 +6,9 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum ProductEnum {
-    DANG(1),
-    NGUNG(0),
-    KHONG(-1);
 
+    TAMNGUNG(0),
+    DANGKINHDOANG(1),
+    KHONGKINHDOANG(-1);
     private int status;
 }

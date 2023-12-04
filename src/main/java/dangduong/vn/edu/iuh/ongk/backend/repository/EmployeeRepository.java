@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
 import java.util.List;
+import java.util.Optional;
 
 public class EmployeeRepository {
 
@@ -43,20 +44,31 @@ public class EmployeeRepository {
         return false;
     }
 
-    public  boolean deleteEmployee(Employee e){
+    public  boolean deleteEmployee(Long id){
+
         try {
-            e.setStatus(EmployeeStatus.NGHI);
-            updateEmployee(e);
-            return  true;
-        }catch (Exception ex){
+            trans.begin();
+            Optional<Employee> op = findById(id);
+            if (op.isPresent()){
+                Employee employee = op.get();
+                employee.setStatus(EmployeeStatus.NGHI);
+                em.merge(employee);
+                trans.commit();
+                return true;
+            }
+            trans.rollback();
+        } catch (Exception ex){
+            trans.rollback();
             ex.printStackTrace();
         }
-        return  false;
+        return false;
     }
-    public Employee findById(long empId){
-        return em.find(Employee.class, empId);
+    public Optional<Employee> findById(long empId){
+        Employee employee = em.find(Employee.class, empId);
+        return employee != null ? Optional.of(employee) : Optional.empty();
 
     }
+
     public List<Employee> getAll(){
         List<Employee> listEmpGetName = em.createNamedQuery("Employee.getALL",Employee.class).setParameter(1,EmployeeStatus.DANGLAM).getResultList();
         return listEmpGetName;

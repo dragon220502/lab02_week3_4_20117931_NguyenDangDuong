@@ -1,20 +1,22 @@
 package dangduong.vn.edu.iuh.ongk.backend.repository;
 
+import dangduong.vn.edu.iuh.ongk.backend.models.Customer;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
 import java.util.List;
+import java.util.Optional;
 
-public class Customer {
+public class CustomerRepository {
     private EntityManager em;
 
     private EntityTransaction trans;
 
-    public  Customer() {
+    public CustomerRepository() {
         em = Connection.getInStance().getEm().createEntityManager();
         trans = em.getTransaction();
     }
-    private boolean taoMoi(Customer c){
+    public boolean create(Customer c){
         try {
             trans.begin();
             em.persist(c);
@@ -27,7 +29,7 @@ public class Customer {
         }
         return  false;
     }
-    private  boolean updateId(Customer c){
+    public   boolean updateId(Customer c){
         try {
             trans.begin();
             em.merge(c);
@@ -40,10 +42,29 @@ public class Customer {
         return  false;
 
     }
-    private Customer findId(long id){
-        return  em.find(Customer.class,id);
+    public boolean delete(long custId){
+
+        try {
+            trans.begin();
+            Optional<Customer> op = findId(custId);
+            if (op.isPresent()){
+                em.remove(op.get());
+                trans.commit();
+                return true;
+            }
+            trans.rollback();
+        } catch (Exception ex){
+            trans.rollback();
+            ex.printStackTrace();
+        }
+        return false;
+
     }
-    private List<Customer> getAll(){
+    public Optional<Customer> findId(long id){
+        Customer customer = em.find(Customer.class, id);
+        return customer != null ? Optional.of(customer) : Optional.empty();
+    }
+    public List<Customer> getAll(){
         List<Customer> ListAll = em.createNamedQuery("Customer.getAll", Customer.class).getResultList();
         return ListAll;
     }
